@@ -1,5 +1,7 @@
 # 停止和失败排查
 
+2026-10-15 HGS输入适配修复：固定版本HGS跳过输入前三行，编码必须使用NAME、COMMENT、TYPE三行，再写DIMENSION。旧编码把DIMENSION放在第三行，服务器192次调用均报`EXCEPTION | The node numbering is not in order.`，即使退出码为0也未产生参考解，参考方法100%回退；该结果不能作为参考信息无效的证据。现在日志出现EXCEPTION或进程非零退出均记为invalid，先保留调用收费/日志哈希再立即阻断阶段；零退出且无异常、无解文件仍按无可行参考处理。更新代码后必须使用新manifest/运行目录，不能沿用旧参考阶段或特征。旧失败运行和已消耗预算必须保留并单列。
+
 先区分工程INVALID、探索性开发未支持、确认STOP_PRACTICAL和统计INCONCLUSIVE。没有真实数据时不得宣布教师有/无价值。
 
 | 阻断 | 只读排查 | 处理 |
