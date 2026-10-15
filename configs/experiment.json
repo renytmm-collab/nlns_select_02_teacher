@@ -1,0 +1,19 @@
+{
+  "experiment": "point-reference-diagnostic-v1",
+  "root_seed": 2026101407,
+  "test_instances": 128,
+  "history_features": [],
+  "device": "cuda",
+  "checkpoint_sha256": "777178c30819f73b387674c29a2430cc06b0fda876792d5e08137d5ea3f94cf8",
+  "checkpoint": "assets/model_incumbent_vrpRl13_C_ALTR_100_P_0.2_80419.pt",
+  "source_repo": "D:/code_nlns/select_01_verify",
+  "development_source": "C:/Users/kcx/Desktop/聪明的破坏/第四部分_四次实验之后的新思路/select_01_verify实验结果",
+  "confirmation_source": "C:/Users/kcx/Desktop/聪明的破坏/第四部分_四次实验之后的新思路/select_01_verify实验结果/classifier-confirm-v1-192/runs/classifier-confirm-v1-192",
+  "historical_catalogs": ["D:/code_nlns/select_01_verify/protocol/historical_instances.json"],
+  "solver_executable": "assets/hgs",
+  "solver_sha256": null,
+  "solver_version": null,
+  "solver_seeds": [271828, 314159, 161803],
+  "solver_seconds": 5,
+  "solver_threads": 1
+}

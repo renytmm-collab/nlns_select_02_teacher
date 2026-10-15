@@ -1,0 +1,77 @@
+[
+  {
+    "path": "LICENSE",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "source": "D:\\code_nlns\\select_01_verify\\LICENSE"
+  },
+  {
+    "path": "actor.py",
+    "sha256": "6d0111286483c3ae48139110e6be53313f99c7f35d0bece438bd7357fcceb529",
+    "source": "D:\\code_nlns\\select_01_verify\\actor.py"
+  },
+  {
+    "path": "repair.py",
+    "sha256": "8e1d15517b38aebbfd45df159d0e97d98db099ab23e63b76c4f30384fa2ca0ea",
+    "source": "D:\\code_nlns\\select_01_verify\\repair.py"
+  },
+  {
+    "path": "vrp/__init__.py",
+    "sha256": "5a4e57dd6a4ecfaf1e549aed40f193fbd4814af993130bc68e18650c160f7282",
+    "source": "D:\\code_nlns\\select_01_verify\\vrp\\__init__.py"
+  },
+  {
+    "path": "vrp/vrp_problem.py",
+    "sha256": "32770ff2118ffd874f8b605cd66dfe6fa4df360beaf8706d5259faa3ac201bf9",
+    "source": "D:\\code_nlns\\select_01_verify\\vrp\\vrp_problem.py"
+  },
+  {
+    "path": "vrp/data_utils.py",
+    "sha256": "ca65a011a3789e531172af936fb7334593818d364822fb149221fb2df182e07d",
+    "source": "D:\\code_nlns\\select_01_verify\\vrp\\data_utils.py"
+  },
+  {
+    "path": "vrp/dataset_blueprints/__init__.py",
+    "sha256": "fdcc9ddefe478113493d7927dbb617b59c57106633dac8c26bdeefff3db65c3e",
+    "source": "D:\\code_nlns\\select_01_verify\\vrp\\dataset_blueprints\\__init__.py"
+  },
+  {
+    "path": "vrp/dataset_blueprints/ALTR.py",
+    "sha256": "6a78f9e1ba30c622c586f38d47962b62a42027850b4649d9a941556c8ea97f6f",
+    "source": "D:\\code_nlns\\select_01_verify\\vrp\\dataset_blueprints\\ALTR.py"
+  },
+  {
+    "path": "point_select/__init__.py",
+    "sha256": "23ac6ee2afd47032e74ca64209f017738711cf9d21b824e38d5e309c2ea6fbd6",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\__init__.py"
+  },
+  {
+    "path": "point_select/data.py",
+    "sha256": "826a29f3d668e6d4cdaf3b03361a6974e67b4dbab4aba6121254c9102a4fa430",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\data.py"
+  },
+  {
+    "path": "point_select/features.py",
+    "sha256": "c5976dd8a834e0d9f2ab4f27482077e8589eb183a40f35c42ccf51f0d9ae394a",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\features.py"
+  },
+  {
+    "path": "point_select/models.py",
+    "sha256": "48175fbbd3f2227148432bedec0644b2f995c499c9041e52feab29e433c9b702",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\models.py"
+  },
+  {
+    "path": "point_select/trees.py",
+    "sha256": "cf401f5756edaa559110c3366a84537e752c13f86de6cdefc4b52096149c4051",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\trees.py"
+  },
+  {
+    "path": "point_select/statistics.py",
+    "sha256": "24b5076598cedad0bf31998f248383251e6a65371986dad9a5d6348170df3b2a",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\statistics.py"
+  },
+  {
+    "path": "point_select/identity.py",
+    "sha256": "9ec5a0161c22b8a084e7ac6699e3fa342daffb3b029aa9e7b561d0be08ab6fd3",
+    "source": "D:\\code_nlns\\select_01_verify\\point_select\\identity.py"
+  }
+]

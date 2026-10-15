@@ -1,0 +1,19 @@
+# 来源审查（2026-10-14）
+
+新工作区 D:\code_nlns\select_02_teacher 开始时为空；没有本地AGENTS.md，遵循对话提供的AGENTS。旧代码和结果目录只读，没有打开任何旧SQLite。
+
+指定源码已按职责审查：data候选/槽位/Destroy，features原12维，models预处理/OOF/冻结预测，collection重复级种子与截断，evaluation实例等权期望，statistics近似推断，backend设备/权重，identity清单/语义流，store收据/账本，pipeline阶段，actor/repair网络输入，vrp_problem片段端点/容量动作，confirmation协议/管线/分析，以及batch_calibration配对规则。
+
+旧开发manifest所列文件全部通过旧identity定义的规范化文本SHA-256核验。protocol/UPSTREAM_BASELINE.json的原始字节SHA-256为e26d8808710c1318abd20fdc4bd9e7491dc90ee60bffa46f98c83aa813a4a64e；将86处CRLF规范化为LF后为manifest预期6068b50191c527282e0bbf4a8624620a6a68cfbe8eecf7182f99508904b5dd89，无BOM。最初仅比较原始字节会误判为身份漂移，本次已明确消解为换行差异。核心代码与该来源记录的规范化内容均匹配；原始字节并非完全一致。新audit-source同时披露raw_hash_differences和source_mismatches，不改旧文件、不忽略历史关注项；任何规范化源码漂移阻断（仅指定upstream来源记录差异留痕允许）。
+
+九个指定开发阶段的complete.json所列文件字节哈希全部匹配（含流式JSONL和snapshot，未读取SQLite）。后续audit-source另校验canonical sealed摘要。旧开发manifest digest b688a83c8890d9175f57023321ecd251b0f8a99f6c88732bb9698d8c9bf4b66f。只验证已有材料身份，不等于重跑历史实验。
+
+历史确认manifest引用服务器 /data/kcx/projects/select_01_verify/runs/calibration-homogeneous-v1，校准manifest摘要1542b0e28704d8728478d67b37ef5db77a2c9a2b14e29e4357b8ad5e43b12cdf，receipt摘要442c313c4ba8ed8fb018462f501a1c5a3e812c0fcb5fff05d4c2cb5d9f159d1b。桌面副本顶层只有stages、classifier-confirm-v1-192及可视化；未扫描可视化缓存，未完整核实原校准目录。确认manifest引用的历史开发receipt摘要与桌面副本receipt摘要有差异，保留此来源限制；不把引用字符串当完整校准证据。新实验必须重新授权配对校准1024次。
+
+旧select-models有五模型/selected_specs/selected_oof_scores，fit-oof保存specs、fold lineage和row_order。导入逐行验证身份、选中spec、OOF训练验证实例不交叉及分数一致；全64拟合模型只用于新测试。其他旧native/contact/release基线直接复算。合法OOF不可恢复则披露，不伪造。
+
+任务给出的checkpoint只有56位，用户明确授权采用旧manifest的完整64位SHA-256：777178c30819f73b387674c29a2430cc06b0fda876792d5e08137d5ea3f94cf8；遗漏e5e08137已记录。本包不复制/下载权重，服务器先核验。
+
+必要源码原样复制vendor，字节哈希及源路径见PROVENANCE.json，GPLv3见vendor/LICENSE。旧identity保留供历史种子/方法预测，不把其旧路径检查改为新路径。真实后端另写新的身份边界，核心actor/Repair/mask未修改。
+
+HGS适配依据官方 [HGS-CVRP README](https://github.com/vidalt/HGS-CVRP)：原生-t CPU时间、-seed、-round、-veh参数。尚未执行或核实本地可执行版本；配置必须填写可执行哈希和版本。关闭取整并不足以证明精度一致，编码round-trip/输出精度/同成本复算均需通过。没有下载或编译求解器。
