@@ -36,6 +36,24 @@ def encode(state):
     if any(int(v)!=v for v in q): raise ValueError('Demand precision loss')
     return text
 
+def printed_cost_tolerance(advertised,cost):
+    # Pinned HGS Population::exportCVRPLibFormat uses defaultfloat (precision 6),
+    # which omits trailing zeros. Decimal places in the token alone are not its
+    # precision. Preserve tighter explicit precision used by existing fixtures.
+    from decimal import Decimal, InvalidOperation
+    try:
+        value=Decimal(advertised)
+    except InvalidOperation as e:
+        raise ValueError('HGS cost is not numeric') from e
+    if not value.is_finite() or value<=0 or not math.isfinite(cost) or cost<=0:
+        raise ValueError('HGS cost must be finite and positive')
+    # Use the finer magnitude at powers-of-ten rounding boundaries (9.999996->10).
+    magnitude=min(value.adjusted(),Decimal(str(cost)).adjusted())
+    exponent=min(value.as_tuple().exponent,magnitude-5)
+    if exponent>=-2:
+        raise ValueError('HGS cost precision/inconsistency: tolerance exceeds .001')
+    return float(Decimal(10)**exponent)/2+1e-10
+
 def parse(text,state):
     rr=[]; advertised=None
     for line in text.splitlines():
@@ -45,11 +63,12 @@ def parse(text,state):
         elif line.strip(): raise ValueError('Unknown HGS solution line')
     c=validate(state,rr)
     if advertised is None: raise ValueError('HGS cost missing')
-    # HGS commonly prints rounded costs; allow exactly half the last printed unit.
-    from decimal import Decimal
-    v=Decimal(advertised); tolerance=float(Decimal(10)**v.as_tuple().exponent)/2+1e-10
-    if tolerance>1e-3 or abs(float(v)-c)>tolerance: raise ValueError('HGS cost precision/inconsistency')
-    return {'routes':rr,'cost':c,'advertised_cost':float(v),'printed_cost_tolerance':tolerance}
+    tolerance=printed_cost_tolerance(advertised,c)
+    difference=abs(float(advertised)-c)
+    if tolerance>1e-3 or difference>tolerance:
+        raise ValueError(f'HGS cost precision/inconsistency: printed={advertised}, recomputed={c!r}, difference={difference!r}, tolerance={tolerance!r}')
+    return {'routes':rr,'cost':c,'advertised_cost':float(advertised),
+            'advertised_cost_text':advertised,'printed_cost_tolerance':tolerance}
 
 def select(outcomes):
     feasible=[o for o in outcomes if o['status']=='ok']

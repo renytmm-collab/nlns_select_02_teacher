@@ -7,7 +7,56 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from teacher_select.core import ROOT, Journal, sha
-from teacher_select.reference import encode, solve, route_cost
+from teacher_select.reference import encode, solve, route_cost, parse, printed_cost_tolerance
+
+
+class PrintedCostPrecision(unittest.TestCase):
+    def test_server_trailing_zero_regression(self):
+        # Isolate the server's observed pair; route validation is tested separately.
+        cost = 14.70996229546488
+        with patch('teacher_select.reference.validate', return_value=cost):
+            result = parse('Cost 14.71\n', {})
+        self.assertEqual(result['cost'], cost)
+        self.assertEqual(result['advertised_cost_text'], '14.71')
+        self.assertAlmostEqual(result['printed_cost_tolerance'], .00005 + 1e-10)
+
+    def test_real_mismatch_still_rejected(self):
+        for cost in (14.7099, 14.7101):
+            with self.subTest(cost=cost), patch('teacher_select.reference.validate', return_value=cost):
+                with self.assertRaisesRegex(ValueError, 'difference='):
+                    parse('Cost 14.71\n', {})
+
+    def test_scientific_notation_and_omitted_zeros(self):
+        for text in ('14.71', '14.7100', '1.471e1', '1.47100e+1'):
+            with self.subTest(text=text):
+                self.assertAlmostEqual(printed_cost_tolerance(text, 14.70996229546488), .00005 + 1e-10)
+
+    def test_higher_explicit_precision_stays_strict(self):
+        self.assertAlmostEqual(printed_cost_tolerance('14.71000000', 14.71), .000000005 + 1e-10)
+        with patch('teacher_select.reference.validate', return_value=14.70996229546488):
+            with self.assertRaises(ValueError):
+                parse('Cost 14.71000000\n', {})
+
+    def test_rounding_across_power_of_ten(self):
+        self.assertAlmostEqual(printed_cost_tolerance('10', 9.999996), .000005 + 1e-10)
+        with patch('teacher_select.reference.validate', return_value=9.999996):
+            parse('Cost 10\n', {})
+        with patch('teacher_select.reference.validate', return_value=9.99996):
+            with self.assertRaises(ValueError):
+                parse('Cost 10\n', {})
+
+    def test_small_cost_uses_significant_digits(self):
+        self.assertAlmostEqual(printed_cost_tolerance('0.001471', .0014709962), .000000005 + 1e-10)
+
+    def test_absolute_precision_cap_preserved(self):
+        self.assertLess(printed_cost_tolerance('147.1', 147.1), .001)
+        with self.assertRaisesRegex(ValueError, 'exceeds .001'):
+            printed_cost_tolerance('1471', 1471.)
+
+    def test_nonfinite_nonpositive_and_malformed_costs_rejected(self):
+        for text in ('NaN', 'Infinity', '-Infinity', '0', '-1', 'bad'):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                printed_cost_tolerance(text, 14.71)
 
 
 class ReferenceAdapter(unittest.TestCase):
